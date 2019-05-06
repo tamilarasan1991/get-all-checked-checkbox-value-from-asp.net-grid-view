@@ -1,0 +1,32 @@
+     <script>   
+        function getvalue(){
+            var checked_checkboxes = $("[id*=chkRow]:checked");
+            var message = "";
+            checked_checkboxes.each(function () {
+                var value = $(this).val();
+                var text = $(this).parent("span").attr("data-value");
+                message += "Text: " + text + " Value: " + value;
+                message += "\n";
+            });
+            alert(message);
+        }
+     </script>
+     
+     
+   //While clicking the butto you can get the value of passed in the data item 
+       <asp:Button runat="server" ID="btnCopySave"  onclientclick="getvalue()" Text="Save" SkinID="BtnRed" />
+             
+     <asp:GridView ID="grdCopy" CssClass="table table-striped table-bordered table-hover" runat="server" PageSize="15" AllowPaging="true" ShowHeader="true"
+                                SkinID="GrdFixed" AutoGenerateColumns="false" Visible="true" ShowHeaderWhenEmpty="true" DataKeyNames="aspectid">
+                                <Columns>
+                                   <asp:TemplateField HeaderStyle-Width="5%" ItemStyle-Width="5%" ItemStyle-HorizontalAlign="Center">
+                                        <HeaderTemplate>
+                                            <asp:CheckBox ID="chkHeader" runat="server" Text="All" />
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkRow" runat="server" data-value='<%#Container.DataItem("somevalue")%>' Text=" "  />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                       <EmptyDataTemplate>No Record Available</EmptyDataTemplate>
+</asp:GridView>
